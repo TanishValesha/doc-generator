@@ -1,6 +1,7 @@
 import { Groq } from "groq-sdk";
 import { marked } from "marked";
-import puppeteer from "puppeteer";
+import puppeteer from "puppeteer-core";
+import chromium from "chrome-aws-lambda";
 import { NextResponse } from "next/server";
 import { generatePostClassDoc } from "@/app/_prompts/postClass";
 import { prisma } from "@/lib/prisma";
@@ -77,7 +78,12 @@ export async function POST(req: Request) {
       </html>
     `;
 
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath,
+      headless: chromium.headless,
+    });
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: "networkidle0" });
 
