@@ -1,6 +1,6 @@
 import { Groq } from "groq-sdk";
 import { marked } from "marked";
-import puppeteer from "puppeteer";
+import chromium from "@sparticuz/chromium";
 import { NextResponse } from "next/server";
 import { generateInClassDoc } from "@/app/_prompts/inClass";
 import { prisma } from "@/lib/prisma";
@@ -77,9 +77,24 @@ export async function POST(req: Request) {
       </html>
     `;
 
+    const isProduction = process.env.NODE_ENV === "production";
+
+    let puppeteer;
+    if (isProduction) {
+      puppeteer = (await import("puppeteer-core")).default;
+    } else {
+      puppeteer = (await import("puppeteer")).default;
+    }
+
     const browser = await puppeteer.launch({
+      args: isProduction
+        ? [...chromium.args, "--hide-scrollbars", "--disable-web-security"]
+        : ["--no-sandbox", "--disable-setuid-sandbox"],
+      defaultViewport: isProduction ? chromium.defaultViewport : undefined,
+      executablePath: isProduction
+        ? await chromium.executablePath()
+        : undefined,
       headless: true,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"], // important for Vercel
     });
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: "networkidle0" });

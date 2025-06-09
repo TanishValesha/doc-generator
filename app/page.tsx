@@ -99,7 +99,7 @@ export default function Dashboard() {
         toast.error(`Error generating document: ${errorText}`);
         console.error("Error response:", errorText);
       }
-      setPreClassForm({ topic: "", filename: "" });
+      setPreClassForm({ topic: "", filename: "", difficulty: "Beginner" });
     } else if (type === "inClass") {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/generate/in-class`,
@@ -133,7 +133,7 @@ export default function Dashboard() {
         toast.error(`Error generating document: ${errorText}`);
         console.error("Error response:", errorText);
       }
-      setInClassForm({ topic: "", filename: "" });
+      setInClassForm({ topic: "", filename: "", difficulty: "Beginner" });
     } else if (type === "postClass") {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/generate/post-class`,
