@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { BookOpen, Users, ClipboardCheck, Download } from "lucide-react";
 import { toast } from "sonner";
 import QuickTips from "./_component/QuickTips";
+import UnifiedGenerate from "./_component/UnifiedGenerate";
 
 interface DocumentForm {
   topic: string;
@@ -51,15 +52,86 @@ export default function Dashboard() {
     setGeneratingStates((prev) => ({ ...prev, [type]: true }));
 
     // Simulate document generation
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    if (type === "preClass") {
+      const res = await fetch("/api/generate/pre-class", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ topic: form.topic, filename: form.filename }),
+      });
 
+      if (res.ok) {
+        toast.success("Document generated successfully");
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${form.filename}_${form.topic}_Pre_Class_File_${new Date()
+          .toLocaleString()
+          .replace(/[/,: ]/g, "_")}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        URL.revokeObjectURL(url);
+      } else {
+        const errorText = await res.text();
+        toast.error(`Error generating document: ${errorText}`);
+        console.error("Error response:", errorText);
+      }
+      setPreClassForm({ topic: "", filename: "" });
+    } else if (type === "inClass") {
+      const res = await fetch("/api/generate/in-class", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ topic: form.topic, filename: form.filename }),
+      });
+      if (res.ok) {
+        toast.success("Document generated successfully");
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${form.filename}_${form.topic}_Pre_Class_File.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        URL.revokeObjectURL(url);
+      } else {
+        const errorText = await res.text();
+        toast.error(`Error generating document: ${errorText}`);
+        console.error("Error response:", errorText);
+      }
+      setInClassForm({ topic: "", filename: "" });
+    } else if (type === "postClass") {
+      const res = await fetch("/api/generate/post-class", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ topic: form.topic, filename: form.filename }),
+      });
+      if (res.ok) {
+        toast.success("Document generated successfully");
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${form.filename}_${form.topic}_Post_Class_File.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        URL.revokeObjectURL(url);
+      } else {
+        const errorText = await res.text();
+        toast.error(`Error generating document: ${errorText}`);
+        console.error("Error response:", errorText);
+      }
+      setPostClassForm({ topic: "", filename: "" });
+    }
     setGeneratingStates((prev) => ({ ...prev, [type]: false }));
-
-    // Here you would typically call an API to generate the document
-    console.log(`Generating ${type} document:`, form);
-    alert(
-      `${type} document "${form.filename}" for topic "${form.topic}" has been generated!`
-    );
   };
 
   const documentTypes = [
@@ -124,6 +196,13 @@ export default function Dashboard() {
           </p>
         </div>
 
+        <UnifiedGenerate />
+
+        <div className="mb-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            Or Generate Individual Documents
+          </h3>
+        </div>
         {/* Document Generation Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {documentTypes.map((docType) => {

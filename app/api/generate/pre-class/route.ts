@@ -8,7 +8,7 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY! });
 
 export async function POST(req: Request) {
   try {
-    const { topic } = await req.json();
+    const { topic, filename } = await req.json();
 
     // Generate Prompt
     const prompt = generatePreClassDoc({ topic });
@@ -96,7 +96,9 @@ export async function POST(req: Request) {
     return new NextResponse(pdfBuffer, {
       headers: {
         "Content-Type": "application/pdf",
-        "Content-Disposition": `attachment; filename="${topic}-preclass.pdf"`,
+        "Content-Disposition": `attachment; filename="${filename}_${topic}_Pre_Class_File_${
+          Date.now().toLocaleString
+        }.pdf"`,
       },
     });
   } catch (error) {
