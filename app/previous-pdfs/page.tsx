@@ -31,7 +31,9 @@ const DocsList = () => {
     const fetchDocuments = async () => {
       const fetchDocs = async () => {
         setLoading(true);
-        const res = await fetch("/api/generated-docs");
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/generated-docs`
+        );
         const data = await res.json();
         if (data.success) {
           setDocuments(data.docs);

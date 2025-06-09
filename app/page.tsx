@@ -64,15 +64,18 @@ export default function Dashboard() {
 
     // Simulate document generation
     if (type === "preClass") {
-      const res = await fetch("/api/generate/pre-class", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          topic: form.topic,
-          filename: form.filename,
-          difficulty: form.difficulty,
-        }),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/generate/pre-class`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            topic: form.topic,
+            filename: form.filename,
+            difficulty: form.difficulty,
+          }),
+        }
+      );
 
       if (res.ok) {
         toast.success("Document generated successfully");
@@ -98,15 +101,18 @@ export default function Dashboard() {
       }
       setPreClassForm({ topic: "", filename: "" });
     } else if (type === "inClass") {
-      const res = await fetch("/api/generate/in-class", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          topic: form.topic,
-          filename: form.filename,
-          difficulty: form.difficulty,
-        }),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/generate/in-class`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            topic: form.topic,
+            filename: form.filename,
+            difficulty: form.difficulty,
+          }),
+        }
+      );
       if (res.ok) {
         toast.success("Document generated successfully");
         const blob = await res.blob();
@@ -129,15 +135,18 @@ export default function Dashboard() {
       }
       setInClassForm({ topic: "", filename: "" });
     } else if (type === "postClass") {
-      const res = await fetch("/api/generate/post-class", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          topic: form.topic,
-          filename: form.filename,
-          difficulty: form.difficulty,
-        }),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/generate/post-class`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            topic: form.topic,
+            filename: form.filename,
+            difficulty: form.difficulty,
+          }),
+        }
+      );
       if (res.ok) {
         toast.success("Document generated successfully");
         const blob = await res.blob();

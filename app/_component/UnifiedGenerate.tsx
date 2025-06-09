@@ -40,15 +40,18 @@ const UnifiedGenerate = () => {
       return;
     }
     setUnifiedGenerating(true);
-    const res1 = await fetch("/api/generate/pre-class", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        topic: unifiedForm.topic,
-        filename: unifiedForm.baseFilename,
-        difficulty: unifiedForm.difficulty,
-      }),
-    });
+    const res1 = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/generate/pre-class`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          topic: unifiedForm.topic,
+          filename: unifiedForm.baseFilename,
+          difficulty: unifiedForm.difficulty,
+        }),
+      }
+    );
     // Pre-Class document
     if (res1.ok) {
       toast.success("Document generated successfully");
@@ -73,15 +76,18 @@ const UnifiedGenerate = () => {
       console.error("Error response:", errorText);
     }
     // In-Class document
-    const res2 = await fetch("/api/generate/in-class", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        topic: unifiedForm.topic,
-        filename: unifiedForm.baseFilename,
-        difficulty: unifiedForm.difficulty,
-      }),
-    });
+    const res2 = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/generate/in-class`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          topic: unifiedForm.topic,
+          filename: unifiedForm.baseFilename,
+          difficulty: unifiedForm.difficulty,
+        }),
+      }
+    );
     if (res2.ok) {
       toast.success("Document generated successfully");
       const blob = await res2.blob();
@@ -105,15 +111,18 @@ const UnifiedGenerate = () => {
       console.error("Error response:", errorText);
     }
     // Post-Class document
-    const res3 = await fetch("/api/generate/post-class", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        topic: unifiedForm.topic,
-        filename: unifiedForm.baseFilename,
-        difficulty: unifiedForm.difficulty,
-      }),
-    });
+    const res3 = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/generate/post-class`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          topic: unifiedForm.topic,
+          filename: unifiedForm.baseFilename,
+          difficulty: unifiedForm.difficulty,
+        }),
+      }
+    );
     if (res3.ok) {
       toast.success("Document generated successfully");
       const blob = await res3.blob();
