@@ -8,10 +8,10 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY! });
 
 export async function POST(req: Request) {
   try {
-    const { topic, filename } = await req.json();
+    const { topic, filename, difficulty } = await req.json();
 
     // Generate Prompt
-    const prompt = generateInClassDoc({ topic });
+    const prompt = generateInClassDoc({ topic, difficulty });
 
     // Get Markdown response from Groq
     const response = await groq.chat.completions.create({

@@ -8,6 +8,13 @@ import {
   CardHeader,
   CardTitle,
 } from "../components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -19,20 +26,24 @@ import UnifiedGenerate from "./_component/UnifiedGenerate";
 interface DocumentForm {
   topic: string;
   filename: string;
+  difficulty?: "Easy" | "Medium" | "Hard";
 }
 
 export default function Dashboard() {
   const [preClassForm, setPreClassForm] = useState<DocumentForm>({
     topic: "",
     filename: "",
+    difficulty: "Easy",
   });
   const [inClassForm, setInClassForm] = useState<DocumentForm>({
     topic: "",
     filename: "",
+    difficulty: "Easy",
   });
   const [postClassForm, setPostClassForm] = useState<DocumentForm>({
     topic: "",
     filename: "",
+    difficulty: "Easy",
   });
   const [generatingStates, setGeneratingStates] = useState({
     preClass: false,
@@ -56,11 +67,17 @@ export default function Dashboard() {
       const res = await fetch("/api/generate/pre-class", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ topic: form.topic, filename: form.filename }),
+        body: JSON.stringify({
+          topic: form.topic,
+          filename: form.filename,
+          difficulty: form.difficulty,
+        }),
       });
 
       if (res.ok) {
         toast.success("Document generated successfully");
+        console.log(res);
+
         const blob = await res.blob();
         const url = URL.createObjectURL(blob);
 
@@ -84,7 +101,11 @@ export default function Dashboard() {
       const res = await fetch("/api/generate/in-class", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ topic: form.topic, filename: form.filename }),
+        body: JSON.stringify({
+          topic: form.topic,
+          filename: form.filename,
+          difficulty: form.difficulty,
+        }),
       });
       if (res.ok) {
         toast.success("Document generated successfully");
@@ -111,7 +132,11 @@ export default function Dashboard() {
       const res = await fetch("/api/generate/post-class", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ topic: form.topic, filename: form.filename }),
+        body: JSON.stringify({
+          topic: form.topic,
+          filename: form.filename,
+          difficulty: form.difficulty,
+        }),
       });
       if (res.ok) {
         toast.success("Document generated successfully");
@@ -135,7 +160,7 @@ export default function Dashboard() {
         toast.error(`Error generating document: ${errorText}`);
         console.error("Error response:", errorText);
       }
-      setPostClassForm({ topic: "", filename: "" });
+      setPostClassForm({ topic: "", filename: "", difficulty: "Easy" });
     }
     setGeneratingStates((prev) => ({ ...prev, [type]: false }));
   };
@@ -145,7 +170,7 @@ export default function Dashboard() {
       id: "preClass",
       title: "Pre-Class Document",
       description:
-        "Preparation materials and reading assignments for students before class",
+        "A short, informative document to help students prepare before the class. It should include a brief overview and key concepts (around 1–2 pages).",
       icon: BookOpen,
       color: "blue",
       bgColor: "bg-blue-50",
@@ -160,7 +185,7 @@ export default function Dashboard() {
       id: "inClass",
       title: "In-Class Document",
       description:
-        "Interactive activities and materials for classroom engagement",
+        "A structured lesson plan or teaching script for a one-hour class, including flow of topics, examples, and key points.",
       icon: Users,
       color: "green",
       bgColor: "bg-green-50",
@@ -175,7 +200,7 @@ export default function Dashboard() {
       id: "postClass",
       title: "Post-Class Document",
       description:
-        "Review materials and assessments for after class completion",
+        "A short quiz (approximately 6-10 questions) and a summary to reinforce the key takeaways from the session.",
       icon: ClipboardCheck,
       color: "purple",
       bgColor: "bg-purple-50",
@@ -277,6 +302,32 @@ export default function Dashboard() {
                       }
                       className="bg-white border-gray-200 focus:border-gray-400 focus:ring-gray-400"
                     />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor={`${docType.id}-filename`}
+                      className="text-sm font-medium text-gray-700"
+                    >
+                      Difficulty Level
+                    </Label>
+                    <Select
+                      onValueChange={(value) =>
+                        docType.setForm({
+                          ...docType.form,
+                          difficulty: value as "Easy" | "Medium" | "Hard",
+                        })
+                      }
+                    >
+                      <SelectTrigger className="w-[180px] bg-white">
+                        <SelectValue placeholder={docType.form.difficulty} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Easy">Easy</SelectItem>
+                        <SelectItem value="Medium">Medium</SelectItem>
+                        <SelectItem value="Hard">Hard</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <Button

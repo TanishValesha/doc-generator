@@ -7,6 +7,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Zap } from "lucide-react";
@@ -16,12 +23,14 @@ import { toast } from "sonner";
 interface UnifiedForm {
   topic: string;
   baseFilename: string;
+  difficulty?: "Easy" | "Medium" | "Hard";
 }
 
 const UnifiedGenerate = () => {
   const [unifiedForm, setUnifiedForm] = useState<UnifiedForm>({
     topic: "",
     baseFilename: "",
+    difficulty: "Easy",
   });
   const [unifiedGenerating, setUnifiedGenerating] = useState(false);
 
@@ -37,6 +46,7 @@ const UnifiedGenerate = () => {
       body: JSON.stringify({
         topic: unifiedForm.topic,
         filename: unifiedForm.baseFilename,
+        difficulty: unifiedForm.difficulty,
       }),
     });
     // Pre-Class document
@@ -69,6 +79,7 @@ const UnifiedGenerate = () => {
       body: JSON.stringify({
         topic: unifiedForm.topic,
         filename: unifiedForm.baseFilename,
+        difficulty: unifiedForm.difficulty,
       }),
     });
     if (res2.ok) {
@@ -100,6 +111,7 @@ const UnifiedGenerate = () => {
       body: JSON.stringify({
         topic: unifiedForm.topic,
         filename: unifiedForm.baseFilename,
+        difficulty: unifiedForm.difficulty,
       }),
     });
     if (res3.ok) {
@@ -155,7 +167,7 @@ const UnifiedGenerate = () => {
       </CardHeader>
 
       <CardContent className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="space-y-2">
             <Label
               htmlFor="unified-topic"
@@ -190,6 +202,32 @@ const UnifiedGenerate = () => {
               }
               className="bg-white border-gray-200 focus:border-indigo-400 focus:ring-indigo-400"
             />
+          </div>
+
+          <div className="space-y-2">
+            <Label
+              htmlFor={`unified-difficulty`}
+              className="text-sm font-medium text-gray-700"
+            >
+              Difficulty Level
+            </Label>
+            <Select
+              onValueChange={(value) =>
+                setUnifiedForm({
+                  ...unifiedForm,
+                  difficulty: value as "Easy" | "Medium" | "Hard",
+                })
+              }
+            >
+              <SelectTrigger className="w-[180px] bg-white">
+                <SelectValue placeholder={unifiedForm.difficulty} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Easy">Easy</SelectItem>
+                <SelectItem value="Medium">Medium</SelectItem>
+                <SelectItem value="Hard">Hard</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
         <Button

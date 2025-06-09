@@ -1,9 +1,18 @@
 interface PromptInput {
   topic: string;
+  difficulty?: string;
 }
 
-export function generatePreClassDoc({ topic }: PromptInput): string {
-  return `Generate a comprehensive pre-class document on the topic: ${topic}
+export function generatePreClassDoc({
+  topic,
+  difficulty,
+}: PromptInput): string {
+  return `Generate a comprehensive pre-class document on the topic: ${topic} with a difficulty level of: ${difficulty}
+
+  -Actually consider the level of difficulty
+  -If the difficulty is Hard then make the lesson plan more advanced and complex (Include some advanced coding examples/problems)
+  -If the difficulty is Easy then make the lesson plan more basic and simple
+  -If the difficulty is Medium then make the lesson plan more intermediate and balanced (Include some advanced coding examples/problems)
 
 ## Formatting Requirements
 Use proper Markdown syntax throughout:
