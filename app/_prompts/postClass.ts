@@ -12,6 +12,7 @@ Use proper Markdown syntax throughout:
 - _Italics_ for emphasis and definitions
 - **-** for bulleted lists with proper indentation
 - Standard paragraph formatting with appropriate line spacing
+- Don't hesistate to include code blocks for technical content
 - Code blocks if technical content is involved
 - Numbered lists for quiz questions
 
@@ -48,6 +49,7 @@ Use proper Markdown syntax throughout:
 - Highlight long-term professional relevance
 
 **Very Important add current day, date with the topic of the class at the top of the document, should be highlighted properly.**
+**Also, Add code samples or blocks**
 
 ## Additional Specifications
 - **Target Audience**: Final year graduate students

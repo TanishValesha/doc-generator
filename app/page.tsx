@@ -93,7 +93,9 @@ export default function Dashboard() {
 
         const a = document.createElement("a");
         a.href = url;
-        a.download = `${form.filename}_${form.topic}_In_Class_File.pdf`;
+        a.download = `${form.filename}_${form.topic}_In_Class_File_${new Date()
+          .toLocaleString()
+          .replace(/[/,: ]/g, "_")}.pdf`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -118,7 +120,11 @@ export default function Dashboard() {
 
         const a = document.createElement("a");
         a.href = url;
-        a.download = `${form.filename}_${form.topic}_Post_Class_File.pdf`;
+        a.download = `${form.filename}_${
+          form.topic
+        }_Post_Class_File_${new Date()
+          .toLocaleString()
+          .replace(/[/,: ]/g, "_")}.pdf`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);

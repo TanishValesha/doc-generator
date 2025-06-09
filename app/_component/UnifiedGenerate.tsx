@@ -31,6 +31,108 @@ const UnifiedGenerate = () => {
       return;
     }
     setUnifiedGenerating(true);
+    const res1 = await fetch("/api/generate/pre-class", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        topic: unifiedForm.topic,
+        filename: unifiedForm.baseFilename,
+      }),
+    });
+    // Pre-Class document
+    if (res1.ok) {
+      toast.success("Document generated successfully");
+      const blob = await res1.blob();
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${unifiedForm.baseFilename}_${
+        unifiedForm.topic
+      }_Pre_Class_File_${new Date()
+        .toLocaleString()
+        .replace(/[/,: ]/g, "_")}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+      URL.revokeObjectURL(url);
+    } else {
+      const errorText = await res1.text();
+      toast.error(`Error generating document: ${errorText}`);
+      console.error("Error response:", errorText);
+    }
+    // In-Class document
+    const res2 = await fetch("/api/generate/in-class", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        topic: unifiedForm.topic,
+        filename: unifiedForm.baseFilename,
+      }),
+    });
+    if (res2.ok) {
+      toast.success("Document generated successfully");
+      const blob = await res2.blob();
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${unifiedForm.baseFilename}_${
+        unifiedForm.topic
+      }_In_Class_File_${new Date()
+        .toLocaleString()
+        .replace(/[/,: ]/g, "_")}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+      URL.revokeObjectURL(url);
+    } else {
+      const errorText = await res2.text();
+      toast.error(`Error generating document: ${errorText}`);
+      console.error("Error response:", errorText);
+    }
+    // Post-Class document
+    const res3 = await fetch("/api/generate/post-class", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        topic: unifiedForm.topic,
+        filename: unifiedForm.baseFilename,
+      }),
+    });
+    if (res3.ok) {
+      toast.success("Document generated successfully");
+      const blob = await res3.blob();
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${unifiedForm.baseFilename}_${
+        unifiedForm.topic
+      }_Post_Class_File_${new Date()
+        .toLocaleString()
+        .replace(/[/,: ]/g, "_")}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+      URL.revokeObjectURL(url);
+    } else {
+      const errorText = await res3.text();
+      toast.error(`Error generating document: ${errorText}`);
+      console.error("Error response:", errorText);
+    }
+    if (res1.ok && res2.ok && res3.ok) {
+      toast.success("All documents generated successfully");
+    } else {
+      toast.error(
+        "Some documents failed to generate. Try regenerating later or contact support."
+      );
+    }
+    setUnifiedGenerating(false);
+    setUnifiedForm({ topic: "", baseFilename: "" });
   };
 
   return (
