@@ -17,10 +17,9 @@ interface Document {
   topic: string;
   filename: string;
   type: "pre-class" | "in-class" | "post-class";
-  difficulty: "Easy" | "Medium" | "Hard";
+  difficulty: "Beginner" | "Intermediate" | "Advanced";
   url: string;
-  generatedAt?: Date;
-  fileSize?: string;
+  createdAt?: Date;
 }
 
 const DocsList = () => {
@@ -74,11 +73,11 @@ const DocsList = () => {
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case "Easy":
+      case "Beginner":
         return "bg-green-100 text-green-700";
-      case "Medium":
+      case "Intermediate":
         return "bg-yellow-100 text-yellow-700";
-      case "Hard":
+      case "Advanced":
         return "bg-red-100 text-red-700";
       default:
         return "bg-gray-100 text-gray-700";
@@ -133,7 +132,7 @@ const DocsList = () => {
       </div>
 
       {/* Documents List */}
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div className="bg-white rounded-xl border border-gray-200 overflow-auto">
         <div className="p-6 border-b border-gray-200 bg-gray-50">
           <div className="flex items-center space-x-2">
             <Clock className="text-gray-600" size={20} />
@@ -164,7 +163,7 @@ const DocsList = () => {
                 key={doc.id}
                 className="p-6 hover:bg-gray-50 transition-colors"
               >
-                <div className="flex items-start justify-between">
+                <div className="sm:flex sm:items-start sm:justify-between">
                   <div className="flex-1">
                     <div className="flex items-center space-x-3 mb-3">
                       <div>
@@ -198,18 +197,29 @@ const DocsList = () => {
                         </span>
                       </div>
 
-                      <div className="flex items-center space-x-4 text-xs text-gray-500">
-                        {doc.generatedAt && (
-                          <span>
-                            Generated on {doc.generatedAt.toLocaleDateString()}{" "}
-                            at{" "}
-                            {doc.generatedAt.toLocaleTimeString([], {
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            })}
-                          </span>
+                      <div className="flex items-center space-x-2 text-xs text-gray-500">
+                        {doc.createdAt && (
+                          <>
+                            <span>
+                              {new Date(doc.createdAt).toLocaleDateString(
+                                undefined,
+                                {
+                                  weekday: "long",
+                                  year: "numeric",
+                                  month: "short",
+                                  day: "numeric",
+                                }
+                              )}
+                            </span>
+                            <span>
+                              at{" "}
+                              {new Date(doc.createdAt).toLocaleTimeString([], {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })}
+                            </span>
+                          </>
                         )}
-                        {doc.fileSize && <span>• {doc.fileSize}</span>}
                       </div>
                     </div>
                   </div>

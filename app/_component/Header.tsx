@@ -13,7 +13,7 @@ const Header = () => {
             <Link href={"/"}>
               <FileText className="w-8 h-8 text-blue-600" />
             </Link>
-            <div>
+            <div className="sm:block hidden">
               <h1 className="text-xl font-semibold text-gray-900">
                 EduDoc Generator
               </h1>

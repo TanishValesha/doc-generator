@@ -26,24 +26,24 @@ import UnifiedGenerate from "./_component/UnifiedGenerate";
 interface DocumentForm {
   topic: string;
   filename: string;
-  difficulty?: "Easy" | "Medium" | "Hard";
+  difficulty?: "Beginner" | "Intermediate" | "Advanced";
 }
 
 export default function Dashboard() {
   const [preClassForm, setPreClassForm] = useState<DocumentForm>({
     topic: "",
     filename: "",
-    difficulty: "Easy",
+    difficulty: "Beginner",
   });
   const [inClassForm, setInClassForm] = useState<DocumentForm>({
     topic: "",
     filename: "",
-    difficulty: "Easy",
+    difficulty: "Beginner",
   });
   const [postClassForm, setPostClassForm] = useState<DocumentForm>({
     topic: "",
     filename: "",
-    difficulty: "Easy",
+    difficulty: "Beginner",
   });
   const [generatingStates, setGeneratingStates] = useState({
     preClass: false,
@@ -160,7 +160,7 @@ export default function Dashboard() {
         toast.error(`Error generating document: ${errorText}`);
         console.error("Error response:", errorText);
       }
-      setPostClassForm({ topic: "", filename: "", difficulty: "Easy" });
+      setPostClassForm({ topic: "", filename: "", difficulty: "Beginner" });
     }
     setGeneratingStates((prev) => ({ ...prev, [type]: false }));
   };
@@ -309,13 +309,16 @@ export default function Dashboard() {
                       htmlFor={`${docType.id}-filename`}
                       className="text-sm font-medium text-gray-700"
                     >
-                      Difficulty Level
+                      Difficulty
                     </Label>
                     <Select
                       onValueChange={(value) =>
                         docType.setForm({
                           ...docType.form,
-                          difficulty: value as "Easy" | "Medium" | "Hard",
+                          difficulty: value as
+                            | "Beginner"
+                            | "Intermediate"
+                            | "Advanced",
                         })
                       }
                     >
@@ -323,9 +326,11 @@ export default function Dashboard() {
                         <SelectValue placeholder={docType.form.difficulty} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Easy">Easy</SelectItem>
-                        <SelectItem value="Medium">Medium</SelectItem>
-                        <SelectItem value="Hard">Hard</SelectItem>
+                        <SelectItem value="Beginner">Beginner</SelectItem>
+                        <SelectItem value="Intermediate">
+                          Intermediate
+                        </SelectItem>
+                        <SelectItem value="Advanced">Advanced</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
