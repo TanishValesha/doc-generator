@@ -1,7 +1,6 @@
 import { Groq } from "groq-sdk";
 import { marked } from "marked";
-import puppeteer from "puppeteer-core";
-import chromium from "chrome-aws-lambda";
+import puppeteer from "puppeteer";
 import { NextResponse } from "next/server";
 import { generatePreClassDoc } from "@/app/_prompts/preClass";
 import { prisma } from "@/lib/prisma";
@@ -79,10 +78,8 @@ export async function POST(req: Request) {
     `;
 
     const browser = await puppeteer.launch({
-      args: chromium.args,
-      defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath,
-      headless: chromium.headless,
+      headless: true,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"], // important for Vercel
     });
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: "networkidle0" });
