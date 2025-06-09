@@ -38,7 +38,7 @@ EduDocs is a full-stack web application that allows educators to generate high-q
 
 ---
 
-## ⚙️ Setup Instructions
+##  Setup Instructions
 
 ### 1. Clone the Repository
 
@@ -90,7 +90,7 @@ npm run dev
 
 ---
 
-## 📅 Prisma Schema
+## Prisma Schema
 
 ```prisma
 model Document {
@@ -106,7 +106,7 @@ model Document {
 
 ---
 
-## 🔄 API Overview
+## API Overview
 
 ### POST `/api/generate/pre-class`
 
@@ -129,13 +129,13 @@ model Document {
 
 ---
 
-## 📄 License
+## License
 
 MIT License — Feel free to use and modify.
 
 ---
 
-## 🙌 Author & Credits
+## Author & Credits
 
 Made by [Tanish Valesha](https://linktr.ee/tanishvalesha)
 
@@ -148,9 +148,9 @@ Thanks to:
 
 ---
 
-## 🚀 Future Improvements
+## Future Improvements
 
-* 🔐 Add user authentication
-* 📋 Folder structure for documents
-* 📊 Analytics dashboard
-* 🪡 AI fine-tuning for more customized content
+* Add user authentication
+* Folder structure for documents
+* Analytics dashboard
+* AI fine-tuning for more customized content
