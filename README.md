@@ -1,18 +1,18 @@
-# 📚 EduDocs – AI-Powered Document Generator
+# EduDocs – AI-Powered Document Generator
 
 EduDocs is a full-stack web application that allows educators to generate high-quality PDF documents using AI for different phases of the teaching process: **Pre-Class**, **In-Class**, and **Post-Class**. Users can generate, download, and manage their documents seamlessly.
 
 ---
 
-## 🚀 Features
+## Features
 
-* ✅ Generate AI-based documents
-* ✅ Convert content to styled PDFs via Puppeteer
-* ✅ Upload and store PDFs on Cloudinary
-* ✅ View history of previously generated documents
-* ✅ Download PDFs whenever required
-* ✅ Beautiful responsive UI with TailwindCSS + ShadCN
-* ✅ Prisma + PostgreSQL backend
+* Generate AI-based documents
+* Convert content to styled PDFs via Puppeteer
+* Upload and store PDFs on Cloudinary
+* View history of previously generated documents
+* Download PDFs whenever required
+* Beautiful responsive UI with TailwindCSS + ShadCN
+* Prisma + PostgreSQL backend
 
 ---
 
