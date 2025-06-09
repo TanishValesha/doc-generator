@@ -1,36 +1,156 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📚 EduDocs – AI-Powered Document Generator
 
-## Getting Started
+EduDocs is a full-stack web application that allows educators to generate high-quality PDF documents using AI for different phases of the teaching process: **Pre-Class**, **In-Class**, and **Post-Class**. Users can generate, download, and manage their documents seamlessly.
 
-First, run the development server:
+---
+
+## 🚀 Features
+
+* ✅ Generate AI-based documents
+* ✅ Convert content to styled PDFs via Puppeteer
+* ✅ Upload and store PDFs on Cloudinary
+* ✅ View history of previously generated documents
+* ✅ Download PDFs whenever required
+* ✅ Beautiful responsive UI with TailwindCSS + ShadCN
+* ✅ Prisma + PostgreSQL backend
+
+---
+
+## 💻 Tech Stack
+
+**Frontend:**
+
+* Next.js 15 (App Router)
+* React, TypeScript
+* TailwindCSS, ShadCN UI
+
+**Backend:**
+
+* API Routes (Node.js)
+* Prisma ORM
+* PostgreSQL
+* Puppeteer & Chrome AWS Lambda (PDF generation)
+
+**Third-Party Services:**
+
+* Cloudinary (PDF hosting)
+* GROQ AI (Document content generation)
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/TanishValesha/doc-generator.git
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Configure Environment Variables
+
+Create a `.env` file with:
+
+```env
+# Database
+DATABASE_URL=postgresql://USER:PASSWORD@HOST:PORT/DATABASE
+
+# AI Key
+GROQ_API_KEY=your_groq_api_key
+
+# Cloudinary
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+CLOUDINARY_UPLOAD_PRESET=your_preset
+
+# App URL
+NEXT_PUBLIC_URL=http://localhost:3000
+
+NODE_ENV=development
+```
+
+### 4. Prisma Setup
+
+```bash
+npx prisma generate
+npx prisma migrate dev --name init
+```
+
+### 5. Start the Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📅 Prisma Schema
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```prisma
+model Document {
+  id         String   @id @default(cuid())
+  filename   String
+  topic      String
+  type       String
+  difficulty String
+  url        String
+  createdAt  DateTime @default(now())
+}
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🔄 API Overview
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### POST `/api/generate/pre-class`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```json
+{
+  "topic": "Algebra Basics",
+  "filename": "intro_to_algebra",
+  "difficulty": "Beginner"
+}
+```
+**Response**: PDF blob
 
-## Deploy on Vercel
+### POST `/api/generate/in-class`
+### POST `/api/generate/post-class`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+(Similar structure)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### GET `/api/generated-docs`
+**Response**: Fetches all the previously generated documents
+
+---
+
+## 📄 License
+
+MIT License — Feel free to use and modify.
+
+---
+
+## 🙌 Author & Credits
+
+Made by [Tanish Valesha](https://linktr.ee/tanishvalesha)
+
+Thanks to:
+
+* [Groq](https://groq.com)
+* [Cloudinary](https://cloudinary.com)
+* [ShadCN](https://ui.shadcn.com)
+* [Vercel](https://vercel.com)
+
+---
+
+## 🚀 Future Improvements
+
+* 🔐 Add user authentication
+* 📋 Folder structure for documents
+* 📊 Analytics dashboard
+* 🪡 AI fine-tuning for more customized content
