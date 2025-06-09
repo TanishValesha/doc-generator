@@ -3,6 +3,7 @@ import { marked } from "marked";
 import puppeteer from "puppeteer";
 import { NextResponse } from "next/server";
 import { generatePostClassDoc } from "@/app/_prompts/postClass";
+import { prisma } from "@/lib/prisma";
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY! });
 
@@ -91,12 +92,41 @@ export async function POST(req: Request) {
       },
     });
 
+    const formData = new FormData();
+    formData.append("file", new Blob([pdfBuffer], { type: "application/pdf" }));
+    formData.append("upload_preset", process.env.CLOUDINARY_UPLOAD_PRESET!);
+
+    const cloudRes = await fetch(
+      `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/raw/upload`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
+    const cloudData = await cloudRes.json();
+    const fileUrl = cloudData.secure_url;
+
+    await prisma.generatedDocument.create({
+      data: {
+        topic,
+        filename: `${filename}_${topic}_Post_Class_File_${new Date()
+          .toLocaleString()
+          .replace(/[/,: ]/g, "_")}.pdf`,
+        type: "post-class",
+        difficulty,
+        url: fileUrl,
+      },
+    });
+
     await browser.close();
 
     return new NextResponse(pdfBuffer, {
       headers: {
         "Content-Type": "application/pdf",
-        "Content-Disposition": `attachment; attachment; filename="${filename}_${topic}_Post_Class_File_${Date.now().toLocaleString()}.pdf"`,
+        "Content-Disposition": `attachment; filename="${filename}_${topic}_Post_Class_File_${new Date()
+          .toLocaleString()
+          .replace(/[/,: ]/g, "_")}.pdf"`,
       },
     });
   } catch (error) {

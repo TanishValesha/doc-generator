@@ -144,7 +144,7 @@ const UnifiedGenerate = () => {
       );
     }
     setUnifiedGenerating(false);
-    setUnifiedForm({ topic: "", baseFilename: "" });
+    setUnifiedForm({ topic: "", baseFilename: "", difficulty: "Easy" });
   };
 
   return (
@@ -247,6 +247,12 @@ const UnifiedGenerate = () => {
             </div>
           )}
         </Button>
+        {unifiedGenerating && (
+          <div className="text-sm text-gray-500 mt-2">
+            Please wait while we generate all documents. This may take a few
+            moments depending on the content.
+          </div>
+        )}
       </CardContent>
     </Card>
   );
