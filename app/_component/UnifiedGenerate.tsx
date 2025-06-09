@@ -23,14 +23,14 @@ import { toast } from "sonner";
 interface UnifiedForm {
   topic: string;
   baseFilename: string;
-  difficulty?: "Easy" | "Medium" | "Hard";
+  difficulty?: "Beginner" | "Intermediate" | "Advanced";
 }
 
 const UnifiedGenerate = () => {
   const [unifiedForm, setUnifiedForm] = useState<UnifiedForm>({
     topic: "",
     baseFilename: "",
-    difficulty: "Easy",
+    difficulty: "Beginner",
   });
   const [unifiedGenerating, setUnifiedGenerating] = useState(false);
 
@@ -153,7 +153,7 @@ const UnifiedGenerate = () => {
       );
     }
     setUnifiedGenerating(false);
-    setUnifiedForm({ topic: "", baseFilename: "", difficulty: "Easy" });
+    setUnifiedForm({ topic: "", baseFilename: "", difficulty: "Beginner" });
   };
 
   return (
@@ -224,7 +224,7 @@ const UnifiedGenerate = () => {
               onValueChange={(value) =>
                 setUnifiedForm({
                   ...unifiedForm,
-                  difficulty: value as "Easy" | "Medium" | "Hard",
+                  difficulty: value as "Beginner" | "Intermediate" | "Advanced",
                 })
               }
             >
@@ -232,9 +232,9 @@ const UnifiedGenerate = () => {
                 <SelectValue placeholder={unifiedForm.difficulty} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Easy">Easy</SelectItem>
-                <SelectItem value="Medium">Medium</SelectItem>
-                <SelectItem value="Hard">Hard</SelectItem>
+                <SelectItem value="Beginner">Beginner</SelectItem>
+                <SelectItem value="Intermediate">Intermediate</SelectItem>
+                <SelectItem value="Advanced">Advanced</SelectItem>
               </SelectContent>
             </Select>
           </div>

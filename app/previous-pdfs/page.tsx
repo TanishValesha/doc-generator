@@ -123,6 +123,57 @@ const DocsList = () => {
 
   return (
     <div className="max-w-5xl mx-auto p-6 space-y-8">
+      {documents.length > 0 && (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-blue-50 rounded-xl p-6 border border-blue-100">
+            <div className="flex items-center space-x-3">
+              <div className="p-2 bg-blue-100 rounded-lg">
+                <BookOpen className="text-blue-600" size={20} />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-blue-600">
+                  Pre-Class Documents
+                </p>
+                <p className="text-2xl font-bold text-blue-900">
+                  {documents.filter((doc) => doc.type === "pre-class").length}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-green-50 rounded-xl p-6 border border-green-100">
+            <div className="flex items-center space-x-3">
+              <div className="p-2 bg-green-100 rounded-lg">
+                <Users className="text-green-600" size={20} />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-green-600">
+                  In-Class Documents
+                </p>
+                <p className="text-2xl font-bold text-green-900">
+                  {documents.filter((doc) => doc.type === "in-class").length}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-purple-50 rounded-xl p-6 border border-purple-100">
+            <div className="flex items-center space-x-3">
+              <div className="p-2 bg-purple-100 rounded-lg">
+                <FileCheck className="text-purple-600" size={20} />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-purple-600">
+                  Post-Class Documents
+                </p>
+                <p className="text-2xl font-bold text-purple-900">
+                  {documents.filter((doc) => doc.type === "post-class").length}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
@@ -240,57 +291,6 @@ const DocsList = () => {
       </div>
 
       {/* Summary Stats */}
-      {documents.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-blue-50 rounded-xl p-6 border border-blue-100">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-blue-100 rounded-lg">
-                <BookOpen className="text-blue-600" size={20} />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-blue-600">
-                  Pre-Class Documents
-                </p>
-                <p className="text-2xl font-bold text-blue-900">
-                  {documents.filter((doc) => doc.type === "pre-class").length}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-green-50 rounded-xl p-6 border border-green-100">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-green-100 rounded-lg">
-                <Users className="text-green-600" size={20} />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-green-600">
-                  In-Class Documents
-                </p>
-                <p className="text-2xl font-bold text-green-900">
-                  {documents.filter((doc) => doc.type === "in-class").length}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-purple-50 rounded-xl p-6 border border-purple-100">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-purple-100 rounded-lg">
-                <FileCheck className="text-purple-600" size={20} />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-purple-600">
-                  Post-Class Documents
-                </p>
-                <p className="text-2xl font-bold text-purple-900">
-                  {documents.filter((doc) => doc.type === "post-class").length}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

@@ -64,6 +64,7 @@ export default function Dashboard() {
 
     // Simulate document generation
     if (type === "preClass") {
+      toast.loading(`Generating Pre-Class Document...This may take a while`);
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/generate/pre-class`,
         {
@@ -78,6 +79,7 @@ export default function Dashboard() {
       );
 
       if (res.ok) {
+        toast.dismiss();
         toast.success("Document generated successfully");
         console.log(res);
 
@@ -101,6 +103,7 @@ export default function Dashboard() {
       }
       setPreClassForm({ topic: "", filename: "", difficulty: "Beginner" });
     } else if (type === "inClass") {
+      toast.loading(`Generating In-Class Document...This may take a while`);
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/generate/in-class`,
         {
@@ -114,6 +117,7 @@ export default function Dashboard() {
         }
       );
       if (res.ok) {
+        toast.dismiss();
         toast.success("Document generated successfully");
         const blob = await res.blob();
         const url = URL.createObjectURL(blob);
@@ -135,6 +139,7 @@ export default function Dashboard() {
       }
       setInClassForm({ topic: "", filename: "", difficulty: "Beginner" });
     } else if (type === "postClass") {
+      toast.loading(`Generating Post-Class Document...This may take a while`);
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/generate/post-class`,
         {
@@ -148,6 +153,7 @@ export default function Dashboard() {
         }
       );
       if (res.ok) {
+        toast.dismiss();
         toast.success("Document generated successfully");
         const blob = await res.blob();
         const url = URL.createObjectURL(blob);
