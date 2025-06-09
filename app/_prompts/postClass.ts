@@ -47,6 +47,8 @@ Use proper Markdown syntax throughout:
 - Suggest preparatory actions for next session
 - Highlight long-term professional relevance
 
+**Very Important add current day, date with the topic of the class at the top of the document, should be highlighted properly.**
+
 ## Additional Specifications
 - **Target Audience**: Final year graduate students
 - **Length**: 600-900 words (approximately 2-3 pages)

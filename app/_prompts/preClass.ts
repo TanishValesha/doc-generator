@@ -45,6 +45,8 @@ Use proper Markdown syntax throughout:
 - Preview how this connects to upcoming class activities
 - Clear call-to-action for student preparation
 
+**Very Important add current day, date with the topic of the class at the top of the document, should be highlighted properly.**
+
 ## Additional Specifications
 - **Target Audience**: Final year graduate students
 - **Length**: 500-800 words (approximately 1-2 pages)

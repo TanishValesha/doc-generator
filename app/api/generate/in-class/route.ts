@@ -2,16 +2,16 @@ import { Groq } from "groq-sdk";
 import { marked } from "marked";
 import puppeteer from "puppeteer";
 import { NextResponse } from "next/server";
-import { generatePreClassDoc } from "@/app/_prompts/preClass";
+import { generateInClassDoc } from "@/app/_prompts/inClass";
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY! });
 
 export async function POST(req: Request) {
   try {
-    const { topic } = await req.json();
+    const { topic, filename } = await req.json();
 
     // Generate Prompt
-    const prompt = generatePreClassDoc({ topic });
+    const prompt = generateInClassDoc({ topic });
 
     // Get Markdown response from Groq
     const response = await groq.chat.completions.create({
@@ -96,7 +96,7 @@ export async function POST(req: Request) {
     return new NextResponse(pdfBuffer, {
       headers: {
         "Content-Type": "application/pdf",
-        "Content-Disposition": `attachment; filename="${topic}-preclass.pdf"`,
+        "Content-Disposition": `attachment; attachment; filename="${filename}_${topic}_In_Class_File_${Date.now().toLocaleString()}.pdf"`,
       },
     });
   } catch (error) {

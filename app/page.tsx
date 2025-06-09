@@ -93,7 +93,7 @@ export default function Dashboard() {
 
         const a = document.createElement("a");
         a.href = url;
-        a.download = `${form.filename}_${form.topic}_Pre_Class_File.pdf`;
+        a.download = `${form.filename}_${form.topic}_In_Class_File.pdf`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
