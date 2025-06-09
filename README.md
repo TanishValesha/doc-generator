@@ -4,7 +4,7 @@ EduDocs is a full-stack web application that allows educators to generate high-q
 
 ---
 
-# Deployed Link – https://doc-generator-zeta.vercel.app
+## Deployed Link – https://doc-generator-zeta.vercel.app
 
 ## Features
 
